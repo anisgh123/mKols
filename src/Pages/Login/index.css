@@ -1,0 +1,97 @@
+
+
+.login-container{
+    display: flex;
+    
+    }
+
+.Login-page{
+  display: flex;
+  flex-direction: column;
+    align-items: center;
+  gap:20px;
+  width: 100%;
+ 
+}
+
+
+#id1, #id2{ 
+    width: 440px;
+    height: 30px;
+    top: 199.28px;
+    border-radius: 5px;
+    border: none;
+    padding: 5px;
+    gap:20px;
+    background-color:#EFF3F6;
+}
+.loginbox{ 
+     top: 20%;
+    left:10%;
+    position: relative;
+    width: 750px;
+    display:block;
+    justify-content: center;
+    }
+
+  .text{ 
+    display: flex;
+    font-family: Proxima Nova;
+    font-size: 29px;
+    font-weight: 700;
+    line-height: 50px;
+    text-align: left;
+    gap :50px
+    }
+   
+         
+ .links-container{
+  display: flex;
+ gap:65px;
+ padding: 5px;
+ width: 450px;
+ position: relative;
+  top: 5px;
+}
+a{
+    color: #F29219;
+}
+
+.forgetpasswordlink{
+    text-wrap:nowrap ;
+}
+
+
+.loginhaeder{   
+     display: flex;
+    width: 80%;
+    padding: 15px 20px 25px 15px;
+    gap:1rem;
+    justify-content: flex-end;
+    margin-right: 100px;
+}
+
+
+#signupbtn{
+background-color: white;
+border-color: #F29219;
+top: 10px;
+border-radius: 5px;
+color: #F29219;
+height: 30px;
+width: 70px;
+text-align: center;
+}
+
+
+.login-button{
+    width: 445px;
+    height: 40px;
+   background-color: #F29219;
+    gap: 6px;
+    border-radius: 5px 5px 5px 5px;
+    color:white;
+    border: none;
+    position: relative;
+    top: 30px;
+    }

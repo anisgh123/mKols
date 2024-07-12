@@ -1,0 +1,8 @@
+.card-container{
+    border: 1px solid gray;
+    width: 25rem;
+    padding: 1rem;
+    border-radius: 8px;
+    border: solid 1px #9d9797;
+    background-color: white;
+}

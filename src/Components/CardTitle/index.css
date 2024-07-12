@@ -1,0 +1,10 @@
+.texts h1,p{
+    margin: 0px;
+}
+.texts{
+    margin-top: .8rem;
+}
+
+.texts h1{
+    margin-bottom: 5px;
+}

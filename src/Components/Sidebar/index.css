@@ -1,0 +1,71 @@
+.custom-layout {
+  background: #fff !important;
+  min-height: 100vh;
+  width: 350px;
+}
+
+.custom-sider {
+  background: #fff !important;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Add box-shadow */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.custom-logo {
+  color: black;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.ant-menu-light {
+  background: #fff !important;
+}
+
+.menu-item-spacing {
+  height: 65px; /* Height of the space between Users and Settings */
+}
+
+.settings-menu-item {
+  background: #000 !important;
+  color: #fff !important;
+}
+
+.settings-menu-item:hover {
+  background: #333 !important;
+}
+
+.profile-footer {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  background: #f0f0f0;
+  margin-top:15px;
+ 
+}
+
+.profile-info {
+  flex: 1;
+  margin-left: 10px;
+}
+
+.profile-name {
+  display: block;
+  font-weight: bold;
+}
+.fixed-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.profile-email {
+  display: block;
+  font-size: 12px;
+
+}
+
+.logout-icon {
+  font-size: 20px;
+  cursor: pointer;
+}

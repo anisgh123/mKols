@@ -1,0 +1,11 @@
+.infos span{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1rem;
+}
+.infos span img{
+    width: 18px;
+    height: 18px;
+
+}

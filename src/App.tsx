@@ -1,26 +1,33 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import SignupBusiness from './Pages/Signupbusiness'
+import SignupCreator from './Pages/SingupCreator';
+import Login from './Pages/Login';
+import ForgetPassword from './Pages/ForgetPassword';
+import ResetPassword from './Pages/ResetPassword';
+import Layout from'./Layout';
+import OffersList from './Pages/OffersList';
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/signupcreator" element={<SignupCreator />} />
+        <Route path="/signupbusiness" element={<SignupBusiness />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/forgetpassword" element={<ForgetPassword />} />
+        <Route path="/resetpassword" element={<ResetPassword />} />
+
+
+       
+      </Routes>
+      
+      <Routes>
+      <Route path="/offers-list" element= {<Layout><OffersList /></Layout>} />
+      </Routes>
+     
+    </Router>
   );
-}
+};
 
 export default App;

@@ -1,0 +1,177 @@
+.signupap {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+}
+
+.header {
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 80px;
+    box-sizing: border-box;
+}
+
+.logo-text {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.buttons-header {
+    display: flex;
+    gap: 10px;
+}
+
+.signuppage {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.signupform {
+    width: 100%;
+    max-width: 400px;
+    display: grid;
+    gap: 20px;
+}
+
+.inputcontainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#id1, #id2, #id3, #id4 {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.signupbtn {
+    width: 100%;
+}
+
+.paragraph-container {
+    text-align: left;
+}
+
+.btn-login, .btn-sgnup {
+    border-radius: 6px;
+    color: black;
+    background-color: white;
+    border: 1px solid gray;
+    padding: 10px 20px;
+}
+h3{
+    margin-bottom: -20px;
+}
+/* Media queries for responsiveness */
+@media (min-width: 600px) {
+    .inputcontainer {
+        flex-direction: row;
+    }
+
+    #id3, #id4 {
+        margin-left: 4px;
+        width: calc(110% - 12px);
+    }
+    #id3{
+        margin-left: 1px;
+    }
+}
+
+
+
+
+/* .signupap{height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:20px;
+    width: 100%;}
+
+.header{
+  
+  height: 80px;
+ gap:4px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 40rem;
+   
+    }
+.logo-text{
+    display: flex; 
+    gap:10px; 
+}
+
+.signuppage{
+    height: 150px;
+        
+}
+.signupform{
+    top: 50%;
+    left:39%;
+    position: relative;
+    width: 360px;
+    display: grid;
+     
+}
+.buttons-header{
+    display: flex;
+    gap:10px;
+}
+.loginbtn{
+    border-radius: 6px;
+}
+
+#id1,#id2{
+    width: 400px; 
+    height: 30px;
+    top: 199.28px;
+    border-radius: 5px;
+    padding: 5px;
+    
+}
+
+.inputcontainer{
+    display: flex;  
+    column-gap: 60px;  
+}
+
+#id3,#id4{width: 163px;
+    padding: 5px; 
+     top: 199.28px;
+    border-radius: 5px; 
+     height: 30px;
+}
+
+.paragraph{ 
+    width: 400px;
+}
+
+.signupbtn{
+    width: 400px;
+    padding:15px 0px 15px 0px;
+}
+.btn-login{
+    border-radius: 6px;
+    color:black;
+    background-color: white;
+    border-color: gray;
+}
+.btn-sgnup{
+    border-radius: 6px;
+    color:black;
+    background-color: white;
+    border-color: gray;
+} */
