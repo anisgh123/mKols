@@ -1,4 +1,10 @@
+#login-email, #login-password{width: 450px;
+  height: 45px;
+  padding: 10px;
+  border-radius: 10px;
+  box-sizing: border-box;
 
+background-color: #EFF3F6;}
 
 .login-container{
     display: flex;
@@ -16,17 +22,14 @@
 
 
 #id1, #id2{ 
-    width: 440px;
-    height: 30px;
-    top: 199.28px;
+    width: 450px;
+  
     border-radius: 5px;
-    border: none;
-    padding: 5px;
-    gap:20px;
-    background-color:#EFF3F6;
+       
+
 }
 .loginbox{ 
-     top: 20%;
+     top: 5%;
     left:10%;
     position: relative;
     width: 750px;
@@ -39,7 +42,7 @@
     font-family: Proxima Nova;
     font-size: 29px;
     font-weight: 700;
-    line-height: 50px;
+    line-height: 150px;
     text-align: left;
     gap :50px
     }
@@ -47,8 +50,8 @@
          
  .links-container{
   display: flex;
- gap:65px;
- padding: 5px;
+ gap:50px;
+
  width: 450px;
  position: relative;
   top: 5px;
@@ -72,26 +75,25 @@ a{
 }
 
 
-#signupbtn{
-background-color: white;
-border-color: #F29219;
-top: 10px;
-border-radius: 5px;
-color: #F29219;
-height: 30px;
-width: 70px;
-text-align: center;
-}
+
 
 
 .login-button{
-    width: 445px;
+    width: 440px;
     height: 40px;
    background-color: #F29219;
-    gap: 6px;
-    border-radius: 5px 5px 5px 5px;
+   
+    border-radius: 5px ;
     color:white;
     border: none;
     position: relative;
-    top: 30px;
+    top: 20px;
+    margin-left: 5px;
+    margin-right: 5px;
+  
     }
+    .Signup{   border-radius: 6px;
+      color: black;
+      background-color: white;
+      border: 1px solid gray;
+      padding: 5px 5px;}

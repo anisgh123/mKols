@@ -1,18 +1,17 @@
 import React from 'react';
 import './index.css'
-const SignUpButton: React.FC = () => {
-  const handleSignUp = () => {
-    // Handle signup logic here
-    console.log('User signed up!');
-  };
 
-  return (
-    <div className='btn'>
-    <button  className="signup-button" onClick={handleSignUp}>
-  Continue
-    </button>
-    </div>
-  );
+
+interface SignUpButtonProps {
+    onClick: () => void;
+}
+
+const SignUpButton: React.FC<SignUpButtonProps> = ({ onClick }) => {
+    return (
+        <button type="button" onClick={onClick} className="btn-signup">
+            Sign Up
+        </button>
+    );
 }
 
 export default SignUpButton;

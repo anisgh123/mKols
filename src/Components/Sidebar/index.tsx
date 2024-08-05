@@ -1,6 +1,7 @@
-// src/Layout/Sidebar.tsx
-import React from 'react';
-import { Layout, Menu, Avatar, Typography } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Layout, Menu, Avatar, Typography, Badge } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import Logo from '../Logo';
 import {
   HomeOutlined,
@@ -21,20 +22,85 @@ const { SubMenu } = Menu;
 const { Text } = Typography;
 
 const Sidebar: React.FC = () => {
+  const [notificationCount, setNotificationCount] = useState<number>(0);
+  const [userInfo, setUserInfo] = useState<any>({});
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchNotificationCount = async () => {
+      const count = 5;
+      setNotificationCount(count);
+    };
+
+    const fetchUserInfo = async () => {
+      const token = localStorage.getItem('token');
+      if (token) {
+        try {
+          const response = await axios.get('http://localhost:5000/api/user', {
+            headers: {
+              Authorization: token,
+            },
+          });
+          setUserInfo(response.data);
+        } catch (error) {
+          console.error('Error fetching user info:', error);
+        }
+      }
+    };
+
+    fetchNotificationCount();
+    fetchUserInfo();
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('firstName');
+    localStorage.removeItem('lastName');
+    localStorage.removeItem('email');
+    localStorage.removeItem('photo');
+    localStorage.removeItem('country');
+    localStorage.removeItem('bio');
+    navigate('/login');
+  };
+
+  const handleMenuClick = ({ key }: { key: string }) => {
+    if (key === 'settings') {
+      navigate('/setting-page');
+    }
+  };
+
   return (
-    <Layout className="custom-layout">
-      <Sider className="custom-sider">
-        <div className="custom-logo">
-          <Logo />
-        </div>
-        <Menu theme="light" mode="inline" defaultSelectedKeys={['home']}>
+    <Sider width={250} className="custom-sider" style={{ background: '#fff' }}>
+      <div className="custom-logo">
+        <Logo />
+      </div>
+      <div className="menu-body">
+        <Menu
+          theme="light"
+          mode="inline"
+          defaultSelectedKeys={['home']}
+          className="main-menu"
+          onClick={handleMenuClick}
+        >
           <Menu.Item key="home" icon={<HomeOutlined />}>
             Home
           </Menu.Item>
           <SubMenu key="dashboard" icon={<AppstoreOutlined />} title="Dashboard">
-            <Menu.Item key="overview" icon={<FileOutlined />}>Overview</Menu.Item>
-            <Menu.Item key="notifications" icon={<BellOutlined />}>Notifications</Menu.Item>
-            <Menu.Item key="tradehistory" icon={<HistoryOutlined />}>TradeHistory</Menu.Item>
+            <Menu.Item key="overview" icon={<FileOutlined />}>
+              Overview
+            </Menu.Item>
+            <Menu.Item key="notifications" icon={<BellOutlined />}>
+              <Badge
+                count={notificationCount}
+                offset={[10, 0]}
+                style={{ backgroundColor: '#52c41a', color: '#fff' }}
+              >
+                Notifications
+              </Badge>
+            </Menu.Item>
+            <Menu.Item key="tradehistory" icon={<HistoryOutlined />}>
+              Trade History
+            </Menu.Item>
           </SubMenu>
           <Menu.Item key="projects" icon={<FileOutlined />}>
             Projects
@@ -48,24 +114,27 @@ const Sidebar: React.FC = () => {
           <Menu.Item key="users" icon={<UserOutlined />}>
             Users
           </Menu.Item>
-          <div className="menu-item-spacing"></div> {/* Spacer */}
+        </Menu>
+      </div>
+      <div className="bottom-menu">
+        <Menu theme="light" mode="inline" onClick={handleMenuClick}>
           <Menu.Item key="settings" icon={<SettingOutlined />} className="settings-menu-item">
             Settings
           </Menu.Item>
         </Menu>
         <div className="profile-footer">
-          <Avatar src="path_to_profile_photo.jpg" size="large" />
+          <Avatar src={userInfo.photo || 'path_to_default_photo.jpg'} size="large" />
           <div className="profile-info">
-            <Text className="profile-name">Profile Name</Text>
-            <Text className="profile-email">email@example.com</Text>
+            <Text className="profile-name">
+              {userInfo.firstName} {userInfo.lastName}
+            </Text>
+            <Text className="profile-email">{userInfo.email}</Text>
           </div>
-          <LogoutOutlined className="logout-icon" />
+          <LogoutOutlined className="logout-icon" onClick={handleLogout} />
         </div>
-      </Sider>
-    </Layout>
+      </div>
+    </Sider>
   );
 };
 
 export default Sidebar;
-
-

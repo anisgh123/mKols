@@ -1,0 +1,134 @@
+* * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+}
+
+.profile-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 20px;
+  background-color: #f4f4f9;
+}
+
+.header-profile {
+  height: 10%;
+  position: relative;
+  overflow: hidden;
+}
+
+.header-profile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 25%;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.profile-pic {
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+}
+
+.contact-info {
+  flex: 1;
+  margin-left: 20px;
+  color: #2d3436;
+}
+
+.contact-info h2 {
+  margin-bottom: 5px;
+}
+
+.contact-info p {
+  margin: 2px 0;
+}
+
+.social-media {
+  display: flex;
+  gap: 10px;
+}
+
+.social-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.social-icon img {
+  border-radius: 50%;
+}
+
+.listings-section {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  position: relative;
+}
+
+.listings-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background-color: #dfe6e9;
+  margin: 10px 0;
+}
+
+.listings {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.listing {
+  width: 150px;
+  text-align: center;
+  background-color: #dfe6e9;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.listing img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.show-more-button {
+  padding: 10px;
+  background-color: #e3c609;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.show-more-button:hover {
+  background-color: #ce8611;
+}

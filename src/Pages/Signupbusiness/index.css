@@ -6,6 +6,10 @@
     gap: 20px;
     width: 100%;
 }
+#business-input1{border: 2px solid black;
+    padding: 10px;
+    border-radius: 5px;
+    box-sizing: border-box;}
 
 .header {
     height: 80px;
@@ -19,12 +23,13 @@
 .logo-text {
     display: flex;
     align-items: center;
-    gap: 10px;
+gap:0.03px
+  
 }
 
 .buttons-header {
     display: flex;
-    gap: 10px;
+    gap: 1px;
 }
 
 .signuppage {
@@ -62,6 +67,7 @@
 
 .paragraph-container {
     text-align: left;
+   
 }
 
 .btn-login, .btn-sgnup {
@@ -72,7 +78,8 @@
     padding: 10px 20px;
 }
 h3{
-    margin-bottom: -20px;
+    margin-bottom:-50px;
+    margin-top: 20px;
 }
 /* Media queries for responsiveness */
 @media (min-width: 600px) {
@@ -90,88 +97,19 @@ h3{
 }
 
 
-
-
-/* .signupap{height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap:20px;
-    width: 100%;}
-
-.header{
-  
-  height: 80px;
- gap:4px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    gap: 40rem;
-   
-    }
-.logo-text{
-    display: flex; 
-    gap:10px; 
-}
-
-.signuppage{
-    height: 150px;
-        
-}
-.signupform{
-    top: 50%;
-    left:39%;
-    position: relative;
-    width: 360px;
-    display: grid;
-     
-}
-.buttons-header{
-    display: flex;
-    gap:10px;
-}
-.loginbtn{
-    border-radius: 6px;
-}
-
-#id1,#id2{
-    width: 400px; 
-    height: 30px;
-    top: 199.28px;
-    border-radius: 5px;
-    padding: 5px;
+#id1,#id2{   border-radius: 6px;
+    color: black;
+    background-color: white;
+    border: 1px solid gray;
+    padding: 10px 20px;}
+    .signupbtn-business{width: 410px;
+        height: 40px;
+        top: 437px;
+    background-color: #F29219;
+        gap: 20px;
+        border-radius: 6px 6px 6px 6px;
+        opacity: 0px;
+        color: white;
     
-}
-
-.inputcontainer{
-    display: flex;  
-    column-gap: 60px;  
-}
-
-#id3,#id4{width: 163px;
-    padding: 5px; 
-     top: 199.28px;
-    border-radius: 5px; 
-     height: 30px;
-}
-
-.paragraph{ 
-    width: 400px;
-}
-
-.signupbtn{
-    width: 400px;
-    padding:15px 0px 15px 0px;
-}
-.btn-login{
-    border-radius: 6px;
-    color:black;
-    background-color: white;
-    border-color: gray;
-}
-.btn-sgnup{
-    border-radius: 6px;
-    color:black;
-    background-color: white;
-    border-color: gray;
-} */
+       border-color: #F26236;
+        }

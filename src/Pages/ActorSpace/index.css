@@ -3,25 +3,45 @@
     justify-content: space-around;
     align-items: center;
     gap: 30rem;
+    height: 50px;
    
 }
+.Signup-creator{color: rgb(0, 0, 0);
+    background-color: #FFFFFF;
+    width: 23rem;
+    padding: 1rem;
+    margin: 1rem auto;
+    border: solid 0.5px gray;
+    border-radius: 6px;
+    font-size: 1rem;}
 
-#login-button{
-    padding: 7px 10px;
-    border-radius: 8px;
-    border: solid .4px gray;
-    background: white;
-}
-
+.login{   border-radius: 6px;
+    color: black;
+    background-color: white;
+    border: 1px solid gray;
+    padding: 5px 5px;
+width: 60px;}
 .cards-container{
     display: flex;
     justify-content: center;
-    gap: 3rem;
-    margin-top: 5rem;
+    gap: 5rem;
+    margin-top: 4rem;
+
 }
 
 .actor-space{
     background-color: #EFF3F6;
-    height: 45.5rem;
+    height: 100vh;
+
 
 }
+.Signup-busuiness{
+    color: white;
+    background-color: #f29219;
+    width: 23rem;
+    padding: 1rem;
+    margin: 1rem auto;
+    border: solid 0.5px gray;
+    border-radius: 6px;
+    font-size: 1rem;
+    }

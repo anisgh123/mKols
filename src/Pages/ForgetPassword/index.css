@@ -2,6 +2,15 @@ body {
   margin: 0;
   padding: 0;
 }
+.head{ display: flex;
+  justify-content: left;
+padding:1px;
+  margin-left: 150px;
+  width: 200px;
+    height: 50px;
+  
+
+ }
 .reset-password-container{
 
   margin-left:80px;
@@ -11,7 +20,6 @@ body {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   
 }
-
 
 .home{
   position: absolute; 
@@ -28,21 +36,23 @@ body {
   align-items: center;
   /*background-color: aquamarine;*/
 }
-
+.logo{margin-left: 1px;
+margin: 50px;}
     
- #id1{ 
-        width:400 px;
-        height: 30px;
-        top: 199.28px;
-        border-radius: 5px;
-        border: none;
-        padding: 5px;
-        gap:20px;
-        background-color:#EFF3F6;}
-        .button{ width: 390px;
+ #forgetinput{ 
+  width: 380px;
+  height: 45px;
+  padding: 10px;
+  border-radius: 10px;
+  box-sizing: border-box;
+
+background-color: #EFF3F6;}
+        .button{ width: 378px;
           height: 40px;
          background-color: #F29219;
         gap: 10px;
       margin-top: 10px;
     border: none;
   border-radius: 5px;}
+  .button{background-color: #F29219;
+  color: white;}

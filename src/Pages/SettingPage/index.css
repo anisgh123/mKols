@@ -1,14 +1,22 @@
-.page{display: flex;}
-.settings-container{width: 80%;
-height:60vh;
-margin-left: 50px;}
-
+.page {
+  display: flex;
+  background-color: #FCFCFD;
+}
+.settings-container {
+  width: 80%;
+  height: 60vh;
+  margin-left: 50px;
+  margin-top: 35px;
+  align-items: center;
+  display: block;
+  
+}
+.inputs{ display: flex; gap:20px;}
 .settings-section-title {
   font-size: 1rem;
   font-weight: bold;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
 }
-
 .settings-section-description {
   font-size: 1rem;
   color: #6b7280;
@@ -18,67 +26,58 @@ margin-left: 50px;}
 .settings-field {
   margin-bottom: 1rem;
   flex-shrink: 0;
+ 
 }
-
 .settings-label {
   font-size: 1rem;
   font-weight: medium;
   margin-bottom: 0.5rem;
   display: block;
+ 
 }
-
 .settings-input-group {
   display: flex;
   width: 50%;
   gap: 1rem;
 }
-
 .settings-input {
   width: 50%;
   padding: 0.5rem;
   border: 1px solid #d1d5db;
   border-radius: 0.375rem;
 }
-
 .settings-photo-upload {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
-
 .settings-photo {
   width: 50px;
   height: 50px;
   border-radius: 50%;
 }
-
 .settings-file-input {
   display: block;
 }
-
 .settings-select {
   width: 50%;
   padding: 0.5rem;
   border: 1px solid #d1d5db;
   border-radius: 0.375rem;
 }
-
 .settings-textarea {
   width: 100%;
-  padding: 0rem;
+  padding: 4rem;
   border: 1px solid #d1d5db;
   border-radius: 0.375rem;
   height: 50px;
 }
-
 .settings-char-count {
-  font-size: 0.5;
+  font-size: 0.5rem;
   color: #6b7280;
   text-align: right;
 }
-
 .settings-save-button {
- 
   padding: 0.5rem 1rem;
   background-color: #ffba08;
   color: #fff;
@@ -86,11 +85,13 @@ margin-left: 50px;}
   border-radius: 0.375rem;
   cursor: pointer;
   transition: background-color 0.3s;
-  flex-shrink: 0;
-  align-items:right;
+  position: absolute; /* Position the button absolutely */
+  right: 8rem; /* Distance from the right edge */
+  top: 6rem; /* Distance from the top edge */
 }
-
 .settings-save-button:hover {
   background-color: #ffa000;
 }
-
+.settings-title{margin-top: 0.00005rem;}
+.settings-form{margin-top: 2rem;
+margin-left: 2rem;}

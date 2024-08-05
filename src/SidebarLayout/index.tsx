@@ -5,7 +5,6 @@ interface Layout {
   children?: ReactNode;
 }
 
-
 const Layout: React.FC<Layout> = ({ children }) => {
   return (
     <div className="sidebar-layout">
@@ -15,6 +14,7 @@ const Layout: React.FC<Layout> = ({ children }) => {
         {children}
        
         </div>
+        
     </div>
   );
 };

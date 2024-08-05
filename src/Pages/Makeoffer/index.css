@@ -1,0 +1,36 @@
+.make-offer-container {
+    max-width: 700px;
+    margin: 0 auto;
+margin-top: 100px;
+    background: #fff;
+   
+    text-align: center;
+  }
+  
+  .make-offer-container h1 {
+    font-size: 24px;
+    font-weight: 600;
+  }
+  
+  .influencer-email {
+    color: #f29219;
+  }
+  
+  .ant-form-item {
+    margin-bottom: 16px;
+  }
+  
+  .ant-input,
+  .ant-input-number,
+  .ant-select-selection-item {
+    font-size: 16px;
+  }
+  
+  .send-offer-button {
+    width: 100%;
+    background-color: #f29219;
+    border-color: #f29219;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  

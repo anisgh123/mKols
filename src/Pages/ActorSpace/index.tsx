@@ -9,7 +9,7 @@ import profile from "../../Assets/Images/Icons/profile.png"
 
 
 import "./index.css"
-import CardButton from "../../Components/ButtonCard"
+
 import CardInfos from "../../Components/CardInfos"
 
 export default function ActorSpace() {
@@ -17,7 +17,7 @@ export default function ActorSpace() {
     <div className="actor-space">
         <header className="App-header">
             <Logo />
-            <button onClick={() => window.location.href = ""} className="login">
+            <button onClick={() => window.location.href = "/login"} className="login">
                     Login
              </button>
         </header>
@@ -25,14 +25,18 @@ export default function ActorSpace() {
         <div className="cards-container">
             <Card>
                 <CardTitle logo={business} title="Business" subtitle="For brands, agencies, and e-commerce stores."/>
-                <CardButton value="Sign Up Free" color="white" bgcolor="#f29219"/>
+                <button  onClick={() => window.location.href = "./signup-business"} className="Signup-busuiness">
+                    Sign Up Free
+             </button>
                 <hr/>
                 <CardInfos title="Every feature your team needs" string1="influencer discovery & recruiting" string2="Comprehensive influencer analytics" string3="Media Planning tool"/>
             </Card>
 
             <Card>
                 <CardTitle logo={profile} title="Creator" subtitle="For influencers to connect and grow"/>
-                <CardButton value="Sign Up Free" color="black" bgcolor="white"/>
+                <button  onClick={() => window.location.href = "/signup-creator"} className="Signup-creator">
+                    Sign Up Free
+                    </button>
                 <hr/>
                 <CardInfos title="Tools to evaluate your creator game" string1="In-depth creator data insight" string2="Auto-updated media kit" string3="personalized recommandations for brands to work with"/>
             </Card>
