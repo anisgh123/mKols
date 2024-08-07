@@ -122,7 +122,7 @@ html, body {
 
 .show-more-button {
   padding: 10px;
-  background-color: #e3c609;
+  background-color: #F29219;
   color: #ffffff;
   border: none;
   border-radius: 8px;
@@ -130,5 +130,16 @@ html, body {
 }
 
 .show-more-button:hover {
-  background-color: #ce8611;
+  background-color:#F29219;
+  ;
 }
+
+.button-collab{ padding: 10px;
+  background-color: #F29219;
+  ;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+width: 180px;
+margin-right:100px;}

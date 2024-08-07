@@ -11,7 +11,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100px;
+  height: 80px;
+
 }
 
 .menu-body {
@@ -29,21 +30,52 @@
   margin-bottom: 16px; /* Adds space between Users and Settings */
 }
 
+/* index.css */
 .profile-footer {
   display: flex;
   align-items: center;
-  padding: 6px;
-  background-color: #fff; /* Adjust as needed */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  border-top: 1px solid #e8e8e8;
+  background-color: #fafafa;
 }
 
-.profile-info {
+.profile-footer .profile-info {
+  margin-left: 10px;
   flex-grow: 1;
-  margin-left: 5px;
+  display: flex;
+  flex-direction: column;
 }
 
-.logout-icon {
+.profile-footer .profile-name {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.profile-footer .profile-email {
+  font-size: 12px;
+  color: #8c8c8c;
+}
+
+.profile-footer .logout-icon {
   font-size: 18px;
-  color: #f5222d;
+  color :black;
   cursor: pointer;
+}
+
+.profile-footer .logout-icon:hover {
+  color: #FFA000;
+}
+
+.profile-avatar {
+  border: 2px solid black;
+  padding: 2px;
+  border-radius: 50%;
+}
+
+.fixed-settings {
+  position: absolute;
+  bottom: 90px;
+  width: 100%;
+  border-top: 1px solid #e8e8e8;
+  background-color: #fff;
 }

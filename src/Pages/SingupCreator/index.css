@@ -20,7 +20,7 @@
 .logo-text {
     display: flex;
     align-items: center;
-    gap: 10px;
+    
 }
 
 .buttons-header {
@@ -49,8 +49,8 @@
     flex-direction: column;
     gap: 20px;
 }
-
-#id1, #id2, #id3, #id4 {
+.logo{width: 80px;}
+#creator-email, #creator-password, #creator-firstName, #creator-lastName {
     width: 100%;
     padding: 10px;
     border-radius: 5px;
@@ -81,9 +81,13 @@ h3{
         flex-direction: row;
     }
 
-    #id3, #id4 {
-        margin-left: 4px;
-        width: calc(110% - 12px);
+    #creator-firstName, #creator-lastName {
+        margin-left: 3px;
+        width: calc(110% - 10px);
+        border: 2px solid black;
+        padding: 10px;
+        border-radius: 5px;
+        box-sizing: border-box;
     }
     #id3{
         margin-left: 1px;

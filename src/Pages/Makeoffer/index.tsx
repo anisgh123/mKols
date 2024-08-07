@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Input, Button, Select } from 'antd';
 import './index.css';
+import { useParams } from 'react-router-dom';
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -10,7 +11,8 @@ const MakeOffer: React.FC = () => {
   const [email, setEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [offerDescription, setOfferDescription] = useState('');
-
+const params =useParams()
+console.log(params)
   const handleSubmit = () => {
     // Handle form submission
     console.log({
@@ -24,15 +26,15 @@ const MakeOffer: React.FC = () => {
   return (
     <div className="make-offer-container">
       <h1>Make offer</h1>
-      <p>Influencer <span className="influencer-email">hi@untitledui.com</span></p>
+      <p>Influencer <span className="influencer-email">{params?.email}</span></p>
       <Form layout="vertical" onFinish={handleSubmit}>
         <Form.Item label="Offer price">
           <Input
             type="number"
             value={offerPrice}
             onChange={(e) => setOfferPrice(e.target.value)}
-            addonBefore="$"
-            addonAfter="USD"
+            addonBefore="DT"
+            addonAfter="DNT"
           />
         </Form.Item>
         <Form.Item label="Email">
@@ -46,14 +48,14 @@ const MakeOffer: React.FC = () => {
         <Form.Item label="Phone number">
           <Input
             addonBefore={
-              <Select defaultValue="US">
-                <Option value="US">US</Option>
-                <Option value="UK">UK</Option>
+              <Select defaultValue="TN">
+                <Option value="US">TN</Option>
+                
               </Select>
             }
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
-            placeholder="+1 (555) 000-0000"
+            placeholder="+(216)00- 000-0000"
           />
         </Form.Item>
         <Form.Item label="Offer description">

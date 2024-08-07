@@ -1,177 +1,141 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import './index.css';
+import './index.css'; // Updated CSS file name to match the component
+import axios from 'axios';
+import { useAuth } from '../../AuthContext';
 
 const SettingPage: React.FC = () => {
-  const navigate = useNavigate();
-
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [photo, setPhoto] = useState("");
-  const [country, setCountry] = useState("");
-  const [bio, setBio] = useState("");
+  const { user, updateUser } = useAuth();
+  const [firstName, setFirstName] = useState(user?.firstName || "");
+  const [lastName, setLastName] = useState(user?.lastName || "");
+  const [email, setEmail] = useState(user?.email || "");
+  const [photo, setPhoto] = useState<File | null>(null);
+  const [photoPreview, setPhotoPreview] = useState(user?.photo || "");
+  const [country, setCountry] = useState(user?.country || "");
+  const [bio, setBio] = useState(user?.bio || "");
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      toast.error("No token found");
-      navigate('/login');
-      return;
-    }
-
-    axios.get('http://localhost:5000/api/user', {
-      headers: {
-        'Authorization': token
-      }
-    }).then(response => {
-      const user = response.data;
-      setEmail(user.email || "");
-      setFirstName(user.firstName || "");
-      setLastName(user.lastName || "");
-      setPhoto(user.photo || "");
+    if (user) {
+      setFirstName(user.firstName);
+      setLastName(user.lastName);
+      setEmail(user.email);
+      setPhotoPreview(user.photo || "");
       setCountry(user.country || "");
       setBio(user.bio || "");
-    }).catch(error => {
-      toast.error("Failed to load user data");
-      console.error(error);
-    });
-  }, [navigate]);
+    }
+  }, [user]);
 
   const handleSave = async () => {
-    const userProfile = {
-      FirstName: firstName,
-      LastName: lastName,
-      email,
-      photo,
+    if (!user) return;
+
+    const updatedUser = {
+      id: user.id,
+      firstName,
+      lastName,
+      email: user.email,
       country,
-      bio
+      bio,
+      photo: photoPreview,
     };
 
     try {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        toast.error("No token found");
-        return;
-      }
-
-      const response = await axios.put('http://localhost:5000/api/user', userProfile, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': token
-        }
+      await axios.patch('http://localhost:5000/api/auth/update-profile', updatedUser, {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
-
-      if (response.status === 200) {
-        toast.success("Profile saved successfully");
-      } else {
-        toast.error("Failed to save profile");
-      }
-    } catch (error: unknown) {
-      if (axios.isAxiosError(error)) {
-        console.error("Error saving profile:", error.response ? error.response.data : error.message);
-      } else if (error instanceof Error) {
-        console.error("Error saving profile:", error.message);
-      } else {
-        console.error("Error saving profile:", error);
-      }
-      toast.error("Error saving profile");
+      updateUser(updatedUser);
+      toast.success('Profile updated successfully');
+    } catch (error) {
+      toast.error('Failed to update profile');
     }
   };
 
   return (
-    <div className="page">
+    <div className="settings-page">
       <ToastContainer />
       <div className="settings-container">
-        <h1 className="settings-title">Settings</h1>
+        <h1 className="settings-title">Profile Settings</h1>
         <div className="settings-form">
-          <h2 className="settings-section-title">Personal info</h2>
-          <p className="settings-section-description">
-            Update your personal details here.
-          </p>
+          <h2 className="settings-section-title">Personal Information</h2>
+          <p className="settings-section-description">Update your personal details below.</p>
+          
           <div className="settings-field">
-           
             <label className="settings-label">Name</label>
-            <div className='inputs'>
-            <input
-              type="text"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              className="settings-input"
-            />
-               <input
-              type="text"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              className="settings-input"
-            />
+            <div className="settings-input-group">
+              <input 
+                type="text" 
+                value={firstName} 
+                onChange={(e) => setFirstName(e.target.value)} 
+                className="settings-input" 
+                placeholder="First Name"
+              />
+              <input 
+                type="text" 
+                value={lastName} 
+                onChange={(e) => setLastName(e.target.value)} 
+                className="settings-input" 
+                placeholder="Last Name"
+              />
             </div>
           </div>
-       
+
           <div className="settings-field">
-            <label className="settings-label">Email address</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="settings-input"
-              readOnly
+            <label className="settings-label">Email Address</label>
+            <input 
+              type="email" 
+              value={email} 
+              readOnly 
+              className="settings-input" 
             />
           </div>
+
           <div className="settings-field">
-            <label className="settings-label">Your photo</label>
+            <label className="settings-label">Profile Photo</label>
             <div className="settings-photo-upload">
-              <img
-                src={photo}
-                alt="User"
-                className="settings-photo"
-              />
-              <input
-                type="file"
-                className="settings-file-input"
+              {photoPreview && <img src={photoPreview} alt="Profile" className="settings-photo-preview" />}
+              <input 
+                type="file" 
+                className="settings-file-input" 
                 onChange={(e) => {
                   if (e.target.files && e.target.files[0]) {
-                    const reader = new FileReader();
-                    reader.onload = (event) => {
-                      if (event.target?.result) {
-                        setPhoto(event.target.result as string);
-                      }
-                    };
-                    reader.readAsDataURL(e.target.files[0]);
+                    setPhoto(e.target.files[0]);
+                    setPhotoPreview(URL.createObjectURL(e.target.files[0]));
                   }
-                }}
+                }} 
               />
             </div>
           </div>
+
           <div className="settings-field">
             <label className="settings-label">Country</label>
-            <select
-              value={country}
-              onChange={(e) => setCountry(e.target.value)}
+            <select 
+              value={country} 
+              onChange={(e) => setCountry(e.target.value)} 
               className="settings-select"
             >
-              <option value="United States">United States</option>
-              <option value="Australia">Australia</option>
-              <option value="Canada">Canada</option>
-              <option value="United Kingdom">United Kingdom</option>
+              <option value="Tunisia">Tunisia</option>
+              <option value="Algeria">Algeria</option>
+              {/* Add more countries as needed */}
             </select>
           </div>
+
           <div className="settings-field">
             <label className="settings-label">Bio</label>
-            <textarea
-              value={bio}
-              onChange={(e) => setBio(e.target.value)}
+            <textarea 
+              value={bio} 
+              onChange={(e) => setBio(e.target.value)} 
               className="settings-textarea"
-            ></textarea>
-            <p className="settings-char-count">
-              {275 - (bio ? bio.length : 0)} characters left
-            </p>
+              maxLength={275}
+              placeholder="Tell us about yourself"
+            />
+            <p className="settings-char-count">{275 - (bio ? bio.length : 0)} characters left</p>
           </div>
-          <button className="settings-save-button" onClick={handleSave}>
-            Save
+
+          <button 
+            className="settings-save-button" 
+            onClick={handleSave}
+          >
+            Save Changes
           </button>
         </div>
       </div>
@@ -180,4 +144,3 @@ const SettingPage: React.FC = () => {
 };
 
 export default SettingPage;
-

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Layout, Menu, Avatar, Typography, Badge } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import Logo from '../Logo';
 import {
   HomeOutlined,
@@ -16,123 +15,114 @@ import {
   LogoutOutlined,
 } from '@ant-design/icons';
 import './index.css';
+import { useAuth } from '../../AuthContext';
 
 const { Sider } = Layout;
-const { SubMenu } = Menu;
 const { Text } = Typography;
 
 const Sidebar: React.FC = () => {
   const [notificationCount, setNotificationCount] = useState<number>(0);
-  const [userInfo, setUserInfo] = useState<any>({});
+  const { user, logout } = useAuth();
+
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchNotificationCount = async () => {
-      const count = 5;
+      const count = 5; // Exemple de nombre de notifications, vous devriez récupérer le nombre réel depuis votre API
       setNotificationCount(count);
     };
 
-    const fetchUserInfo = async () => {
-      const token = localStorage.getItem('token');
-      if (token) {
-        try {
-          const response = await axios.get('http://localhost:5000/api/user', {
-            headers: {
-              Authorization: token,
-            },
-          });
-          setUserInfo(response.data);
-        } catch (error) {
-          console.error('Error fetching user info:', error);
-        }
-      }
-    };
-
     fetchNotificationCount();
-    fetchUserInfo();
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('firstName');
-    localStorage.removeItem('lastName');
-    localStorage.removeItem('email');
-    localStorage.removeItem('photo');
-    localStorage.removeItem('country');
-    localStorage.removeItem('bio');
+    logout();
     navigate('/login');
   };
 
   const handleMenuClick = ({ key }: { key: string }) => {
-    if (key === 'settings') {
-      navigate('/setting-page');
-    }
+    navigate(`/${key}`);
   };
 
+  const menuItems = [
+    {
+      key: 'home',
+      icon: <HomeOutlined />,
+      label: 'Home',
+    },
+    {
+      key: 'dashboard',
+      icon: <AppstoreOutlined />,
+      label: 'Dashboard',
+      children: [
+        {
+          key: 'overview',
+          icon: <FileOutlined />,
+          label: 'Overview',
+        },
+        {
+          key: 'notifications',
+          icon: <BellOutlined />,
+          label: (
+            <Badge count={notificationCount} offset={[10, 0]} style={{ backgroundColor: '#52c41a', color: '#fff' }}>
+              Notifications
+            </Badge>
+          ),
+        },
+        {
+          key: 'tradehistory',
+          icon: <HistoryOutlined />,
+          label: 'Trade History',
+        },
+      ],
+    },
+    {
+      key: 'projects',
+      icon: <FileOutlined />,
+      label: 'Projects',
+    },
+    {
+      key: 'tasks',
+      icon: <CheckCircleOutlined />,
+      label: 'Tasks',
+    },
+    {
+      key: 'reporting',
+      icon: <LineChartOutlined />,
+      label: 'Reporting',
+    },
+    {
+      key: 'users',
+      icon: <UserOutlined />,
+      label: 'Users',
+    },
+  ];
+
   return (
-    <Sider width={250} className="custom-sider" style={{ background: '#fff' }}>
+    <Sider width={250} className="custom-sider" style={{ background: '#fff', position: 'relative' }}>
       <div className="custom-logo">
         <Logo />
       </div>
       <div className="menu-body">
-        <Menu
-          theme="light"
-          mode="inline"
-          defaultSelectedKeys={['home']}
-          className="main-menu"
-          onClick={handleMenuClick}
-        >
-          <Menu.Item key="home" icon={<HomeOutlined />}>
-            Home
-          </Menu.Item>
-          <SubMenu key="dashboard" icon={<AppstoreOutlined />} title="Dashboard">
-            <Menu.Item key="overview" icon={<FileOutlined />}>
-              Overview
-            </Menu.Item>
-            <Menu.Item key="notifications" icon={<BellOutlined />}>
-              <Badge
-                count={notificationCount}
-                offset={[10, 0]}
-                style={{ backgroundColor: '#52c41a', color: '#fff' }}
-              >
-                Notifications
-              </Badge>
-            </Menu.Item>
-            <Menu.Item key="tradehistory" icon={<HistoryOutlined />}>
-              Trade History
-            </Menu.Item>
-          </SubMenu>
-          <Menu.Item key="projects" icon={<FileOutlined />}>
-            Projects
-          </Menu.Item>
-          <Menu.Item key="tasks" icon={<CheckCircleOutlined />}>
-            Tasks
-          </Menu.Item>
-          <Menu.Item key="reporting" icon={<LineChartOutlined />}>
-            Reporting
-          </Menu.Item>
-          <Menu.Item key="users" icon={<UserOutlined />}>
-            Users
-          </Menu.Item>
-        </Menu>
+        <Menu theme="light" mode="inline" defaultSelectedKeys={['home']} className="main-menu" onClick={handleMenuClick} items={menuItems} />
       </div>
       <div className="bottom-menu">
-        <Menu theme="light" mode="inline" onClick={handleMenuClick}>
-          <Menu.Item key="settings" icon={<SettingOutlined />} className="settings-menu-item">
-            Settings
-          </Menu.Item>
-        </Menu>
         <div className="profile-footer">
-          <Avatar src={userInfo.photo || 'path_to_default_photo.jpg'} size="large" />
+          <Avatar className="profile-avatar" src={user?.photo || 'path_to_default_photo.jpg'} size="large" />
           <div className="profile-info">
             <Text className="profile-name">
-              {userInfo.firstName} {userInfo.lastName}
+              {user?.firstName} {user?.lastName}
             </Text>
-            <Text className="profile-email">{userInfo.email}</Text>
+            <Text className="profile-email">{user?.email}</Text>
           </div>
           <LogoutOutlined className="logout-icon" onClick={handleLogout} />
         </div>
       </div>
+      <Menu theme="light" mode="inline" className="fixed-settings" onClick={handleMenuClick}>
+        <Menu.Item key="settings" icon={<SettingOutlined />}>
+          Settings
+        </Menu.Item>
+      </Menu>
     </Sider>
   );
 };

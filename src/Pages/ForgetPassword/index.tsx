@@ -1,33 +1,30 @@
 import React, { useState, ChangeEvent } from 'react';
-import axios, { AxiosError } from 'axios';
 import Input from "../../Components/Input";
 import Logo from "../../Components/Logo";
 import './index.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 
-const ForgetPassword = () => {
-  const [state, setState] = useState({ email: "" });
-  const [message, setMessage] = useState("");
+const ForgetPassword: React.FC = () => {
+  const [email, setEmail] = useState('');
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setState(prevState => ({ ...prevState, [name]: value }));
+    setEmail(e.target.value);
   };
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/forget-password', { email: state.email });
-      setMessage(response.data.msg);
+      await axios.post('http://localhost:5000/api/auth/forget-password', { email });
+      toast.success('Reset link sent to email');
     } catch (error) {
-      if (axios.isAxiosError(error) && error.response) {
-        setMessage(error.response.data.msg || "Failed to send email");
-      } else {
-        setMessage("Failed to send email");
-      }
+      toast.error('Error sending reset link');
     }
   };
 
   return (
     <div>
+      <ToastContainer />
       <div className="head">
         <Logo />
       </div>
@@ -35,18 +32,19 @@ const ForgetPassword = () => {
         <div className="box">
           <div className="reset-password-container">
             <h1>Reset your Password</h1>
-            <p>Submit your email address and we'll send you a link to<br /> reset your password</p>
+            <p>Submit your email address and we'll send you <br /> a link to reset your password</p>
             <Input
               name="email"
               type="email"
               placeholder="e.g.email@maycompany.com"
               label="Work E-mail:"
               id="forgetinput"
-              value={state.email}
+              value={email}
               onChange={handleChange}
             />
-            <button className="button" type="button" onClick={handleSubmit}>Submit</button>
-            {message && <p>{message}</p>}
+            <button className="button" type="button" onClick={handleSubmit}>
+              Submit
+            </button>
             <p className="changed-mind">Changed your mind? <a href="/login">Log In</a></p>
           </div>
         </div>

@@ -12,13 +12,13 @@ padding:1px;
 
  }
 .reset-password-container{
-
+margin-top: 50px;
   margin-left:80px;
   margin-right: 80px;
   display: i;}
 .box{ border-radius: 5px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  
+  height: 300px;
 }
 
 .home{
@@ -37,7 +37,9 @@ padding:1px;
   /*background-color: aquamarine;*/
 }
 .logo{margin-left: 1px;
-margin: 50px;}
+margin: 50px;
+display: flex;
+    align-items: center;}
     
  #forgetinput{ 
   width: 380px;
