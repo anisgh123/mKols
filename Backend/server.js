@@ -1,23 +1,20 @@
-require('dotenv').config();
 const express = require('express');
-const connectDB = require('./config/db');
-const authRoutes = require('./routes/authRoutes');
-const userRoutes = require('./routes/userRoutes');
+const mongoose = require('mongoose');
 const cors = require('cors');
+const bodyParser = require('body-parser');
+const dotenv = require('dotenv');
+const authRoutes = require('./routes/authRoutes');
+
+dotenv.config();
 
 const app = express();
 
-// Connect to the database
-connectDB();
-
-// Middleware
 app.use(cors());
-app.use(express.json({ limit: '50mb' }));
-app.use(express.urlencoded({ limit: '50mb', extended: true }));
-
-// Routes
+app.use(bodyParser.json());
 app.use('/api/auth', authRoutes);
-app.use('/api', userRoutes);
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => app.listen(PORT, () => console.log(`Server running on port ${PORT}`)))
+  .catch((error) => console.log(`Connection error: ${error}`));

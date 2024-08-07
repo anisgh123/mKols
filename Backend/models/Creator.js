@@ -1,15 +1,15 @@
 const mongoose = require('mongoose');
 
 const CreatorSchema = new mongoose.Schema({
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
   FirstName: { type: String, required: true },
   LastName: { type: String, required: true },
-  photo: String,
-  country: String,
-  bio: String,
-  resetPasswordToken: String,
-  resetPasswordExpires: Date
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  photo: { type: String },
+  country: { type: String },
+  bio: { type: String },
+  resetPasswordToken: { type: String },
+  resetPasswordExpires: { type: Date }
 });
 
 module.exports = mongoose.model('Creator', CreatorSchema);
