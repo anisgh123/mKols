@@ -8,7 +8,14 @@ const userSchema = new mongoose.Schema({
   photo: { type: String },
   country: { type: String },
   bio: { type: String },
-  accountType:{type:String}
+  accountType:{type:String},
+  followers:{type:Number},
+  avatar:{type:String},
+  following:{type:Number},
+  category:{type:String},
+  is_business:{type:String},
+  is_verified_account:{type:String}
+
   
 });
 
