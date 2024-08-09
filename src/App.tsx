@@ -21,6 +21,7 @@ const App: React.FC = () => {
     <Router>
       <AuthProvider>
         <Routes>
+          
           <Route path="/actor-space" element={<ActorSpace />} />
           <Route path="/signup-creator" element={<SignupCreator />} />
           <Route path="/signup-business" element={<SignupBusiness />} />
@@ -30,9 +31,9 @@ const App: React.FC = () => {
           <Route path="/offers-list" element={<PrivateRoute element={<Layout><OffersList /></Layout>} />} />
           <Route path="/makeoffer/:email/:id" element={<PrivateRoute element={<Layout><MakeOffer /></Layout>} />} />
           <Route path="/setting-page" element={<PrivateRoute element={<Layout><SettingPage /></Layout>} />} />
-          <Route path="/profile" element={<PrivateRoute element={<Layout><ProfilePage /></Layout>} />} />
+          <Route path="/profile/:id" element={<PrivateRoute element={<Layout><ProfilePage /></Layout>} />} />
           <Route path="/offercreator" element={<PrivateRoute element={<Layout><OfferCreator /></Layout>} />} />
-          <Route path="/filter" element={<PrivateRoute element={<Layout><FilterProfile/></Layout>} />} />
+          <Route path="/creators" element={<PrivateRoute element={<Layout><FilterProfile/></Layout>} />} />
         </Routes>
       </AuthProvider>
     </Router>

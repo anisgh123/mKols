@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table, Space, DatePicker, Input, Button, Popconfirm } from 'antd';
 import { SearchOutlined, FilterOutlined, CheckOutlined, CloseOutlined, EyeOutlined, DeleteOutlined } from '@ant-design/icons';
 import './index.css';
+import axios from 'axios';
 
 const { RangePicker } = DatePicker;
 
@@ -34,7 +35,22 @@ const OffersListCreator: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   const pageSize = 5;
+  const [offers,setOffers]=useState<any>()
+  console.log(offers)
+  useEffect(() => {
+    const fetchCreators = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/api/userOffers`, {
+          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+        });
+        setOffers(response.data);
+      } catch (error) {
+        console.error('Error fetching creator profiles:', error);
+      }
+    };
 
+    fetchCreators();
+  }, []);
   const handleDelete = (key: React.Key) => {
     setData(data.filter(item => item.key !== key));
   };
@@ -51,23 +67,23 @@ const OffersListCreator: React.FC = () => {
 
   const columns = [
     {
-      title: 'Offer',
-      dataIndex: 'offer',
+      title: 'Email bussnesssdf',             
+      dataIndex: 'businessemail',
       key: 'offer',
     },
     {
       title: 'Offer Amount',
-      dataIndex: 'amount',
+      dataIndex: 'Offerprice',
       key: 'amount',
     },
     {
-      title: 'Date',
-      dataIndex: 'date',
+      title: ' lastName',
+      dataIndex: ' lastName',
       key: 'date',
     },
     {
-      title: 'Business',
-      dataIndex: 'business',
+      title: 'Status',
+      dataIndex: 'status:',
       key: 'business',
       render: (text: string, record: any) => (
         <Space>
@@ -141,7 +157,7 @@ const OffersListCreator: React.FC = () => {
         className="offers-table"
         rowSelection={rowSelection}
         columns={columns}
-        dataSource={data.slice((currentPage - 1) * pageSize, currentPage * pageSize)}
+        dataSource={offers?.slice((currentPage - 1) * pageSize, currentPage * pageSize)}
         pagination={false}
       />
       <div className="offers-pagination">

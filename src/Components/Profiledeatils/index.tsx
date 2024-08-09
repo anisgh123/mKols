@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
+import { FaInstagram } from 'react-icons/fa';
 
 const ProfileContainer = styled.div`
   display: flex;
@@ -8,7 +8,7 @@ const ProfileContainer = styled.div`
 
   border-radius: 10px;
   color: white;
-  width: 90%;
+ height:350px
   margin-buttom:2px;
   align-items: center;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -36,10 +36,7 @@ const ProfileName = styled.h2`
   margin: 0;
 `;
 
-const SponsoredTag = styled.span`
-  font-size: 12px;
-  color: #ff7f50;
-`;
+
 
 const ProfileInfo = styled.div`
   margin: 10px 0;
@@ -58,7 +55,7 @@ const SocialIcon = styled.div`
 `;
 
 const ProfileBio = styled.p`
-  margin: 10px 0;
+ height:20 px
 `;
 
 const ProfileActions = styled.div`
@@ -93,7 +90,7 @@ const ProfileDetails: React.FC = () => {
     
         </ProfileHeader>
         <ProfileInfo>
-          <div>27 years old</div>
+         
           <div>Japan</div>
           <SocialIcons>
            
@@ -103,14 +100,11 @@ const ProfileDetails: React.FC = () => {
           </SocialIcons>
         </ProfileInfo>
         <ProfileBio>
-          I'm Cathay, content creator and influencer with a passion for exploring and sharing unique life experiences.
-          My focus revolves around showcasing culture, travel, food, and lifestyle through my lens. With a proven track
-          record of creating engaging content and connecting naturally with my audience, I'm excited to collaborate with
-          you. I believe my creativity can ignite interest in your brand or product...
+     
         </ProfileBio>
         <ProfileActions>
           <SaveButton>Save</SaveButton>
-          <ViewPortfolioButton>View portfolio</ViewPortfolioButton>
+          <ViewPortfolioButton onClick={() => window.location.href = "/profile"}>View portfolio</ViewPortfolioButton>
         </ProfileActions>
       </ProfileContent>
     </ProfileContainer>

@@ -28,7 +28,7 @@ const Sidebar: React.FC = () => {
 
   useEffect(() => {
     const fetchNotificationCount = async () => {
-      const count = 5; // Exemple de nombre de notifications, vous devriez récupérer le nombre réel depuis votre API
+      const count = 5; // Example notification count, you should fetch the real count from your API
       setNotificationCount(count);
     };
 
@@ -92,7 +92,7 @@ const Sidebar: React.FC = () => {
       label: 'Reporting',
     },
     {
-      key: 'users',
+      key: 'creators',
       icon: <UserOutlined />,
       label: 'Users',
     },
@@ -119,7 +119,7 @@ const Sidebar: React.FC = () => {
         </div>
       </div>
       <Menu theme="light" mode="inline" className="fixed-settings" onClick={handleMenuClick}>
-        <Menu.Item key="settings" icon={<SettingOutlined />}>
+        <Menu.Item key="setting-page" icon={<SettingOutlined />}>
           Settings
         </Menu.Item>
       </Menu>

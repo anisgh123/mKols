@@ -4,6 +4,7 @@ import SearchBar from '../../Components/SearchBar';
 import ProfileCard from '../../Components/ProfileCard';
 import ProfileDetails from '../../Components/Profiledeatils';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const PageContainer = styled.div`
   display: grid;
@@ -33,19 +34,24 @@ const Content = styled.main`
 const Footer = styled.footer`
   grid-area: footer;
   padding: 10px;
-  width: 100%;
+  width: 95%;
   height: 100px;
+  margin-buttom:0px;
+  margin-top:100px;
 `;
 
 interface User {
-  photo: string;
+  imageUrl: string;
   firstName: string;
   isCreator: boolean;
   lastName:string;
+  photo:string;
+  _id:string
 }
 
 const FilterProfile: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
+const navigate =useNavigate()
 
   useEffect(() => {
     const fetchCreators = async () => {
@@ -67,7 +73,8 @@ const FilterProfile: React.FC = () => {
       </Header>
       <Content>
         {users.map((user, index) => (
-          <ProfileCard key={index} imageUrl={user.photo} name={user.firstName + user.lastName} />
+          <div onClick={()=> navigate(`/profile/${user?._id}`)} >          <ProfileCard key={index} imageUrl={user.photo} name={user.firstName + user.lastName} />
+</div>
         ))}
       </Content>
       <Footer>

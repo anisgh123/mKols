@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Input from '../../Components/Input';
 import loginslider from '../../Assets/Images/Icons/loginslider.png';
 import './index.css';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../AuthContext';
 import axios from 'axios';
 
@@ -15,13 +16,14 @@ const Login: React.FC = () => {
     const { name, value } = e.target;
     setState(prevState => ({ ...prevState, [name]: value }));
   };
-
+  const navigate=useNavigate()
   const handleSubmit = async () => {
     try {
       const response = await axios.post('http://localhost:5000/api/auth/login', state);
       login(response.data.token, response.data.user);
       toast.success('Login successful');
-      window.location.href = '/setting-page';
+      // window.location.href = '/home';
+      
     } catch (error) {
       toast.error('Login failed');
     }
@@ -36,7 +38,7 @@ const Login: React.FC = () => {
       <div className="Login-page">
         <div className="loginhaeder">
           Don't have an account?
-          <button onClick={() => window.location.href = "/actor-space"} className="Signup">
+          <button  onClick={() =>navigate (  "/actor-space")} className="Signup">
             Signup
           </button>
         </div>

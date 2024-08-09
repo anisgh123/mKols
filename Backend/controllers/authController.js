@@ -45,7 +45,7 @@ exports.login = async (req, res) => {
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
     if (!isPasswordCorrect) return res.status(400).json({ message: 'Invalid credentials' });
 
-    const token = jwt.sign({ email: user.email, id: user._id, accountType: user.accountType }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ email: user.email, id: user._id, accountType: user.accountType }, process.env.JWT_SECRET, { expiresIn: '4h' });
 
     res.status(200).json({ token, user });
   } catch (error) {
@@ -155,7 +155,7 @@ exports.signup = async (req, res) => {
     const newUser = new User({ firstName, lastName, email, password: hashedPassword, accountType, isCreator });
     await newUser.save();
 
-    const token = jwt.sign({ email: newUser.email, id: newUser._id, accountType: newUser.accountType, isCreator: newUser.isCreator }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ email: newUser.email, id: newUser._id,  accountType: newUser.accountType, isCreator: newUser.isCreator }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
     res.status(201).json({ token, user: newUser });
   } catch (error) {
@@ -163,3 +163,6 @@ exports.signup = async (req, res) => {
     res.status(500).json({ message: 'Something went wrong' });
   }
 };
+
+// Controller method to fetch creator IDs
+

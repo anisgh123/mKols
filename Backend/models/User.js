@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema({
   country: { type: String },
   bio: { type: String },
   accountType:{type:String}
+  
 });
 
 const User = mongoose.model('User', userSchema);
