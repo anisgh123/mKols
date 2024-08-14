@@ -1,4 +1,5 @@
 const Offer = require('../models/Offers');
+const User = require('../models/User');
 
 // Create Offer
 exports.createOffer = async (req, res) => {
@@ -35,7 +36,7 @@ exports.getOffersByUserId = async (req, res) => {
   }
 };
 exports.updateOfferStatus = async (req, res) => {
-  const { offerId } = req.params;
+  const { id } = req.params;
   const { status } = req.body;
 
   // Validate the status
@@ -46,9 +47,9 @@ exports.updateOfferStatus = async (req, res) => {
 
   try {
     const updatedOffer = await Offer.findByIdAndUpdate(
-      offerId,
+      id,
       { status },
-      { new: true } // Return the updated document
+    
     );
 
     if (!updatedOffer) {
@@ -62,16 +63,42 @@ exports.updateOfferStatus = async (req, res) => {
   }
 };
 exports.deleteOffer = async (req, res) => {
-  const { offerId } = req.params;
+  const { id } = req.params;
+  console.log(req)
 
   try {
-    const deletedOffer = await Offer.findByIdAndDelete(offerId);
+    const deletedOffer = await Offer.findByIdAndDelete(id);
 
     if (!deletedOffer) {
       return res.status(404).json({ message: 'Offer not found' });
     }
 
     res.status(200).json({ message: 'Offer deleted successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Something went wrong' });
+  }
+};
+
+
+
+exports.getBusinessOffers = async (req, res) => {
+  try {
+    const email = req.query.email;
+
+    // Find all offers related to the business email
+    const offers = await Offer.find({ businessemail: email });
+
+    // Map through each offer and fetch the corresponding creator details
+    const offersWithCreators = await Promise.all(offers.map(async (offer) => {
+      const creator = await User.findById(offer.creatorId); // Assuming creatorId is stored as ObjectId in Offer
+      return {
+        ...offer.toObject(), // Convert Mongoose document to plain JavaScript object
+        creator: creator ? creator.toObject() : null, // Attach the creator details to each offer
+      };
+    }));
+
+    res.status(200).json(offersWithCreators);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Something went wrong' });

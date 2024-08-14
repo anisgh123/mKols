@@ -6,6 +6,7 @@ const dotenv = require('dotenv');
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const offerRoutes = require('./routes/offerRoutes');
+const taskRoutes = require('./routes/TaskRoutes');
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ app.use(bodyParser.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/', userRoutes);
 app.use('/api/', offerRoutes);
+app.use('/api/', taskRoutes);
 
 const PORT = process.env.PORT || 5000;
 
