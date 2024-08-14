@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table, Tag, Space, DatePicker, Input, Button, Popconfirm } from 'antd';
 import { SearchOutlined, FilterOutlined, DeleteOutlined } from '@ant-design/icons';
 import './index.css';
+import axios from 'axios';
 
 const { RangePicker } = DatePicker;
 
@@ -75,6 +76,7 @@ const OffersList: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   const pageSize = 5;
+  const [offers,setOffers]=useState<any>()
 
   const handleDelete = (key: React.Key) => {
     setData(data.filter(item => item.key !== key));
@@ -88,7 +90,7 @@ const OffersList: React.FC = () => {
     },
     {
       title: 'Offer Amount',
-      dataIndex: 'amount',
+      dataIndex: 'Offerprice',
       key: 'amount',
     },
     {
@@ -110,12 +112,12 @@ const OffersList: React.FC = () => {
     },
     {
       title: 'Influencer',
-      dataIndex: 'influencer',
+      dataIndex: 'creator',
       key: 'influencer',
-      render: (text: string, record: any) => (
+      render: (text: any, record: any) => (
         <Space>
-          <span>{text}</span>
-          <a href={`mailto:${record.email}`}>{record.email}</a>
+          <span>{text?.firstName}</span>
+          <a href={`mailto:${text.email}`}>{text.email}</a>
         </Space>
       ),
     },
@@ -134,7 +136,22 @@ const OffersList: React.FC = () => {
       ),
     },
   ];
+  const userData: any = JSON.parse(localStorage.getItem("userProfile") || '{}');
 
+  useEffect(() => {
+    const fetchCreators = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/api/businessOffer?email=${userData?.email}`, {
+          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+        });
+        setOffers(response.data);
+      } catch (error) {
+        console.error('Error fetching creator profiles:', error);
+      }
+    };
+
+    fetchCreators();
+  }, []);
   const handleFilterChange = (newFilter: string) => {
     setFilter(newFilter);
     setCurrentPage(1); // Reset to first page when filter changes
@@ -183,7 +200,7 @@ const OffersList: React.FC = () => {
         className="offers-table"
         rowSelection={rowSelection}
         columns={columns}
-        dataSource={filteredData.slice((currentPage - 1) * pageSize, currentPage * pageSize)}
+        dataSource={offers?.slice((currentPage - 1) * pageSize, currentPage * pageSize)}
         pagination={false}
       />
       <div className="offers-pagination">

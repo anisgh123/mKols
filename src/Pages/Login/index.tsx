@@ -11,7 +11,6 @@ import axios from 'axios';
 const Login: React.FC = () => {
   const [state, setState] = useState({ email: "", password: "" });
   const { login } = useAuth();
-
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setState(prevState => ({ ...prevState, [name]: value }));
@@ -23,7 +22,9 @@ const Login: React.FC = () => {
       login(response.data.token, response.data.user);
       toast.success('Login successful');
       // window.location.href = '/home';
-      
+      console.log(response)
+      navigate("/verif")
+
     } catch (error) {
       toast.error('Login failed');
     }

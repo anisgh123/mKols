@@ -1,0 +1,38 @@
+.tasks-page {
+    padding: 40px;
+   width: 100%;
+    margin: auto;
+    height: 100vh;
+    background-color: #f0f2f5;
+  }
+  
+  .tasks-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .summary-info {
+    margin-left: 20px;
+  }
+  
+  .task-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .task-title .completed {
+    text-decoration: line-through;
+    color: gray;
+  }
+  
+  .task-deadline {
+    margin-top: 5px;
+  }
+  

@@ -15,6 +15,9 @@ import ProfilePage from './Pages/ProfilePage';
 import PrivateRoute from './PrivateRoute';
 import OfferCreator from './Pages/OfferListCreator';
 import FilterProfile from './Pages/FilterProfile';
+import InstagramVerif from './Pages/InstagramVerif/InstagramVerif';
+import Task  from './Pages/Task';
+import HomePageBrand from './Pages/BrandHomePage';
 
 const App: React.FC = () => {
   return (
@@ -34,6 +37,9 @@ const App: React.FC = () => {
           <Route path="/profile/:id" element={<PrivateRoute element={<Layout><ProfilePage /></Layout>} />} />
           <Route path="/offercreator" element={<PrivateRoute element={<Layout><OfferCreator /></Layout>} />} />
           <Route path="/creators" element={<PrivateRoute element={<Layout><FilterProfile/></Layout>} />} />
+          <Route path="/verif" element={<PrivateRoute element={<Layout><InstagramVerif/></Layout>} />} />
+          <Route path="/tasks" element={<PrivateRoute element={<Layout><Task/></Layout>} />} />
+          <Route path="/home-brand" element={<PrivateRoute element={<Layout><HomePageBrand/></Layout>} />} />
         </Routes>
       </AuthProvider>
     </Router>

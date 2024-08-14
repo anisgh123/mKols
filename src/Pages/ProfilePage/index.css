@@ -143,3 +143,23 @@ html, body {
   cursor: pointer;
 width: 180px;
 margin-right:100px;}
+.listings-section {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.pie-chart-container {
+  width: 300px; /* Adjust the width as needed */
+  margin: 0 auto;
+}
+.info-result {
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.fixed-pie {
+  width: 100%;
+  max-width: 300px; /* Control the maximum width of the pie chart */
+  margin: 0 auto;
+}
