@@ -39,7 +39,7 @@ const Sidebar: React.FC = () => {
     logout();
     navigate('/login');
   };
-
+  console.log(user)
   const handleMenuClick = ({ key }: { key: string }) => {
     navigate(`/${key}`);
   };
@@ -49,6 +49,7 @@ const Sidebar: React.FC = () => {
       key: 'home',
       icon: <HomeOutlined />,
       label: 'Home',
+      
     },
     {
       key: 'dashboard',
@@ -77,7 +78,7 @@ const Sidebar: React.FC = () => {
       ],
     },
     {
-      key: 'projects',
+      key: user?.accountType ==="creator" ?'offercreator' : "offers-list",
       icon: <FileOutlined />,
       label: 'Projects',
     },
@@ -91,12 +92,15 @@ const Sidebar: React.FC = () => {
       icon: <LineChartOutlined />,
       label: 'Reporting',
     },
-    {
+
+  ]
+  if (user?.accountType === "creator") {
+    menuItems.push({
       key: 'creators',
       icon: <UserOutlined />,
       label: 'Users',
-    },
-  ];
+    });
+  }
 
   return (
     <Sider width={250} className="custom-sider" style={{ background: '#fff', position: 'relative' }}>
