@@ -1,6 +1,18 @@
 const Offer = require('../models/Offers');
 const User = require('../models/User');
 
+const nodemailer = require('nodemailer');
+
+
+
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user:'anisgharsellaoui027@gmail.com',
+    pass:'tqns rrnm hwrf syds'
+  },
+});
 // Create Offer
 exports.createOffer = async (req, res) => {
   const { lastName,creatorId, Offerprice, businessemail, Phonenumber, Offerdescription, status="pending" } = req.body;
@@ -15,8 +27,26 @@ exports.createOffer = async (req, res) => {
       Offerdescription,
       status
     });
+  
 
     await newOffer.save();
+    const creator = await User.findById(creatorId);
+    const mailOptions = {
+      from: 'Anisgharsellaoui@gmailcom' ,
+      host:"127.0.0.1",
+   
+      to: creator?.email,
+      subject: 'New offer',
+      html: `<p>New offer proposition from ${businessemail}</p>`,
+    };
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.log(error)
+        return res.status(500).json({ message: 'Failed to send email' });
+      } else {
+        return res.status(200).json({ message: 'Reset link sent to email' });
+      }
+    });
     res.status(201).json(newOffer);
   } catch (error) {
     console.error(error);

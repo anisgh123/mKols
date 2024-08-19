@@ -5,10 +5,10 @@ const nodemailer = require('nodemailer');
 
 // Configure nodemailer
 const transporter = nodemailer.createTransport({
-  service: process.env.EMAIL_SERVICE,
+  service: "gmail",
   auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
+    user:'anisgharsellaoui027@gmail.com',
+    pass:'tqns rrnm hwrf syds'
   },
 });
 
@@ -72,7 +72,9 @@ exports.forgetPassword = async (req, res) => {
     // Send email with reset link
     const resetLink = `http://localhost:3000/reset-password/${resetToken}/${email}`;
     const mailOptions = {
-      from: process.env.EMAIL_USER,
+      from: 'Anisgharsellaoui@gmailcom' ,
+      host:"127.0.0.1",
+   
       to: email,
       subject: 'Password Reset Request',
       html: `<p>You requested for a password reset</p><p>Click this <a href="${resetLink}">link</a> to reset your password</p>`,
@@ -80,6 +82,7 @@ exports.forgetPassword = async (req, res) => {
 
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
+        console.log(error)
         return res.status(500).json({ message: 'Failed to send email' });
       } else {
         return res.status(200).json({ message: 'Reset link sent to email' });
