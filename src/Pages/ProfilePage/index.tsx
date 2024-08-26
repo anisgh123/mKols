@@ -68,6 +68,7 @@ const ProfilePage: React.FC = () => {
   };
 
   return (
+  
     <div className="profile-page">
       <ToastContainer />
       <div className="header-profile">
@@ -76,7 +77,7 @@ const ProfilePage: React.FC = () => {
       <div className="profile-section">
         <img
           className="profile-pic"
-          src={creator?.profilePicUrl || 'https://via.placeholder.com/70'}
+          src={creator?.avatar}
           alt="Profile"
         />
         <div className="contact-info">

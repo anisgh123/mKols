@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, Row, Col, List, Typography, Statistic } from 'antd';
 import { Bar, Pie } from 'react-chartjs-2';
 import { Chart, BarElement, CategoryScale, LinearScale, Tooltip, Legend, ArcElement } from 'chart.js';
@@ -38,7 +38,23 @@ const HomePageBrand: React.FC = () => {
       date: '2024-03-01',
     },
   ];
+  const userData: any = JSON.parse(localStorage.getItem("userProfile") || '{}');
+ const [offers,setOffers] =useState([])
+ console.log(offers)
+  useEffect(() => {
+    const fetchCreators = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/api/businessOffer?email=${userData?.email}`, {
+          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+        });
+        setOffers(response.data);
+      } catch (error) {
+        console.error('Error fetching creator profiles:', error);
+      }
+    };
 
+    fetchCreators();
+  }, []);
   const staticTotalProducts = staticBrand.products.length;
   const staticTotalSales = staticBrand.products.reduce((acc, product) => acc + product.sales, 0);
 
@@ -61,13 +77,16 @@ const HomePageBrand: React.FC = () => {
       },
     ],
   };
-
+  const declinedOffersCount = offers?.filter((offer: any) => offer?.status === "declined").length || 0;
+  const acceptedOffersCount = offers?.filter((offer: any) => offer?.status === "accepted").length || 0;
+  const pendingOffersCount = offers?.filter((offer: any) => offer?.status === "pending").length || 0;
+  
   const offerStatusData = {
     labels: ['Accepted', 'Rejected', 'Pending'],
     datasets: [
       {
         label: 'Offer Statuses',
-        data: [12, 5, 8], // Example data: 12 accepted, 5 rejected, 8 pending
+        data: [acceptedOffersCount, declinedOffersCount, pendingOffersCount], // Example data: 12 accepted, 5 rejected, 8 pending
         backgroundColor: ['#4caf50', '#f44336', '#ffeb3b'],
         borderColor: ['#388e3c', '#d32f2f', '#fbc02d'],
         borderWidth: 1,

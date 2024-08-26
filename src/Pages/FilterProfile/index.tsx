@@ -7,14 +7,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const PageContainer = styled.div`
-  display: grid;
-  grid-template-areas:
-    'header header'
-    'sidebar content'
-    'footer footer';
-  grid-template-columns: 250px 1fr;
-  grid-template-rows: auto 1fr auto;
-  height: 80vh;
+
 `;
 
 const Header = styled.header`
@@ -23,11 +16,11 @@ const Header = styled.header`
 `;
 
 const Content = styled.main`
-  grid-area: content;
   padding: 10px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 10px;
+  display: flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap: 50px;
   height: 350px;
 `;
 
@@ -46,6 +39,7 @@ interface User {
   isCreator: boolean;
   lastName:string;
   photo:string;
+  followers:string;
   _id:string
 }
 
@@ -65,7 +59,9 @@ const navigate =useNavigate()
 
     fetchCreators();
   }, []);
-
+  useEffect(()=>{    setSelectedUser(users?.[0])
+  },[users])
+const [selectedUser,setSelectedUser]=useState<any>(users?.[0])
   return (
     <PageContainer>
       <Header>
@@ -73,12 +69,12 @@ const navigate =useNavigate()
       </Header>
       <Content>
         {users.map((user, index) => (
-          <div onClick={()=> navigate(`/profile/${user?._id}`)} >          <ProfileCard key={index} imageUrl={user.photo} name={user.firstName + user.lastName} />
+          <div onClick={()=> setSelectedUser(user)} >  <ProfileCard key={index} imageUrl={`http://localhost:5000/${user?.photo}`} name={user.firstName + user.lastName}   />
 </div>
         ))}
       </Content>
       <Footer>
-        <ProfileDetails />
+        <ProfileDetails handleNavigateToprofile={()=> navigate(`/profile/${selectedUser?._id}`)} data={selectedUser} />
       </Footer>
     </PageContainer>
   );

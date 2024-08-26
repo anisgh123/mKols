@@ -14,7 +14,7 @@ const SettingPage: React.FC = () => {
   const [photoPreview, setPhotoPreview] = useState(user?.photo || "");
   const [country, setCountry] = useState(user?.country || "");
   const [bio, setBio] = useState(user?.bio || "");
-
+console.log(user)
   useEffect(() => {
     if (user) {
       setFirstName(user.firstName);
@@ -28,7 +28,7 @@ const SettingPage: React.FC = () => {
 
   const handleSave = async () => {
     if (!user) return;
-
+  
     const updatedUser = {
       id: user.id,
       firstName,
@@ -36,19 +36,38 @@ const SettingPage: React.FC = () => {
       email: user.email,
       country,
       bio,
-      photo: photoPreview,
     };
-
+  
     try {
-      await axios.patch('http://localhost:5000/api/auth/update-profile', updatedUser, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+      let photoUrl = photoPreview;
+  
+      if (photo) {
+        const formData = new FormData();
+        formData.append('photo', photo);
+  
+        const uploadResponse = await axios.post('http://localhost:5000/api/upload-photo', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
+  
+        photoUrl = uploadResponse.data.photoUrl; // Assuming this returns something like '/uploads/filename.ext'
+      }
+  
+      // Update the user's profile with the photo URL
+      const response = await axios.patch('http://localhost:5000/api/auth/update-profile', { ...updatedUser, photo: photoUrl }, {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
-      updateUser(updatedUser);
+  
+      updateUser(response.data);
       toast.success('Profile updated successfully');
     } catch (error) {
       toast.error('Failed to update profile');
     }
   };
+  
+  
 
   return (
     <div className="settings-page">
@@ -92,7 +111,7 @@ const SettingPage: React.FC = () => {
           <div className="settings-field">
             <label className="settings-label">Profile Photo</label>
             <div className="settings-photo-upload">
-              {photoPreview && <img src={photoPreview} alt="Profile" className="settings-photo-preview" />}
+              {photoPreview && <img src={`http://localhost:5000/${user?.photo}`} alt="Profile" className="settings-photo-preview" />}
               <input 
                 type="file" 
                 className="settings-file-input" 

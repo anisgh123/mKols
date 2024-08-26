@@ -5,10 +5,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './index.css';
 import axios, { AxiosError } from 'axios';
-
+import { useNavigate } from 'react-router-dom';
 const SignupCreator: React.FC = () => {
   const [state, setState] = useState({ email: "", password: "", firstName: "", lastName: "", accountType: "creator" });
-
+const navigate=useNavigate();
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setState(prevState => ({ ...prevState, [name]: value }));
@@ -41,10 +41,10 @@ const SignupCreator: React.FC = () => {
           Influencer
         </div>
         <div className="buttons-header">
-          <button onClick={() => window.location.href = "/login"} className="btn-login">
+          <button onClick={() => navigate("/login")} className="btn-login">
             Login
           </button>
-          <button onClick={() => window.location.href = "/signup-business"} className="btn-sgnup">
+          <button onClick={() => navigate ("/signup-business")} className="btn-sgnup">
             Signup as Business
           </button>
         </div>

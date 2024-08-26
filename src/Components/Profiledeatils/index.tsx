@@ -5,7 +5,7 @@ import { FaInstagram } from 'react-icons/fa';
 const ProfileContainer = styled.div`
   display: flex;
   background-color: #2b3a47;
-
+   padding:20px;
   border-radius: 10px;
   color: white;
  height:350px
@@ -79,23 +79,27 @@ const ViewPortfolioButton = styled.button`
   border-radius: 5px;
   cursor: pointer;
 `;
-
-const ProfileDetails: React.FC = () => {
+interface props {
+  handleNavigateToprofile:any
+  data:any
+}
+const ProfileDetails: React.FC<props> = ({handleNavigateToprofile,data}) => {
+  console.log(data)
   return (
     <ProfileContainer>
-      <ProfileImage src="path_to_image.jpg" alt="Profile" />
+      <ProfileImage src={`http://localhost:5000/`+data?.photo} alt="Profile" />
       <ProfileContent>
         <ProfileHeader>
-          <ProfileName>Cathay</ProfileName>
+          <ProfileName>{data?.firstName}{data?.lastName} </ProfileName>
     
         </ProfileHeader>
         <ProfileInfo>
          
-          <div>Japan</div>
+          <div>{data?.country}</div>
           <SocialIcons>
            
             <SocialIcon>
-              <FaInstagram /> 100k followers
+              <FaInstagram /> {data?.followers} followers
             </SocialIcon>
           </SocialIcons>
         </ProfileInfo>
@@ -103,8 +107,8 @@ const ProfileDetails: React.FC = () => {
      
         </ProfileBio>
         <ProfileActions>
-          <SaveButton>Save</SaveButton>
-          <ViewPortfolioButton onClick={() => window.location.href = "/profile"}>View portfolio</ViewPortfolioButton>
+          <SaveButton>{data?.bio}</SaveButton>
+          <ViewPortfolioButton onClick={handleNavigateToprofile}>View portfolio</ViewPortfolioButton>
         </ProfileActions>
       </ProfileContent>
     </ProfileContainer>

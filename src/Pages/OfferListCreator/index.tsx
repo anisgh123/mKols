@@ -101,6 +101,7 @@ const OffersListCreator: React.FC = () => {
       title: 'Status',
       dataIndex: 'status',
       key: 'business',
+      
       render: (text: string, record: any) => (
         <Space>
           <span>{text}</span>

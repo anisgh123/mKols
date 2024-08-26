@@ -46,7 +46,7 @@ const Sidebar: React.FC = () => {
 
   const menuItems = [
     {
-      key: 'home',
+      key: user?.accountType ==="creator" ?'verif' : "home-brand",
       icon: <HomeOutlined />,
       label: 'Home',
       
@@ -88,13 +88,13 @@ const Sidebar: React.FC = () => {
       label: 'Tasks',
     },
     {
-      key: 'reporting',
+      key: user?.accountType ==="creator" ?'report-creator' : "home-brand",
       icon: <LineChartOutlined />,
       label: 'Reporting',
     },
 
   ]
-  if (user?.accountType === "creator") {
+  if (user?.accountType === "business") {
     menuItems.push({
       key: 'creators',
       icon: <UserOutlined />,
@@ -112,7 +112,7 @@ const Sidebar: React.FC = () => {
       </div>
       <div className="bottom-menu">
         <div className="profile-footer">
-          <Avatar className="profile-avatar" src={user?.photo || 'path_to_default_photo.jpg'} size="large" />
+          <Avatar className="profile-avatar" src={`http://localhost:5000/${user?.photo}`} size="large" />
           <div className="profile-info">
             <Text className="profile-name">
               {user?.firstName} {user?.lastName}

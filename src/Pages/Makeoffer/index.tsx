@@ -4,6 +4,7 @@ import './index.css';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -13,22 +14,32 @@ const MakeOffer: React.FC = () => {
   const [email, setEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [offerDescription, setOfferDescription] = useState('');
-const params =useParams()
-console.log(params)
+  const params = useParams();
+  console.log(params);
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/api/offer',{
-        creatorId:params?.id, Offerprice:offerPrice, businessemail:email, Phonenumber:phoneNumber, Offerdescription:offerDescription
+      const response = await axios.post('http://localhost:5000/api/offer', {
+        creatorId: params?.id,
+        Offerprice: offerPrice,
+        businessemail: email,
+        Phonenumber: phoneNumber,
+        Offerdescription: offerDescription,
       });
-      toast.success('offre created ');
-      // window.location.href = '/home';
-      console.log(response)
+      toast.success('Offer created successfully');
+      
+      // Reset input fields after success
+      setOfferPrice('');
+      setEmail('');
+      setPhoneNumber('');
+      setOfferDescription('');
 
+      console.log(response);
     } catch (error) {
-      toast.error('offer creation failed');
+      toast.error('Offer creation failed');
     }
   };
+
   return (
     <div className="make-offer-container">
       <h1>Make offer</h1>
@@ -55,8 +66,7 @@ console.log(params)
           <Input
             addonBefore={
               <Select defaultValue="TN">
-                <Option value="US">TN</Option>
-                
+                <Option value="TN">TN</Option>
               </Select>
             }
             value={phoneNumber}
@@ -83,3 +93,4 @@ console.log(params)
 };
 
 export default MakeOffer;
+

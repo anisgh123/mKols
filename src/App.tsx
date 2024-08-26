@@ -18,7 +18,8 @@ import FilterProfile from './Pages/FilterProfile';
 import InstagramVerif from './Pages/InstagramVerif/InstagramVerif';
 import Task  from './Pages/Task';
 import HomePageBrand from './Pages/BrandHomePage';
-
+import Overview from './Pages/Overview'
+import ReportCreator from './Pages/ReportCreator';
 const App: React.FC = () => {
   return (
     <Router>
@@ -40,6 +41,8 @@ const App: React.FC = () => {
           <Route path="/verif" element={<PrivateRoute element={<Layout><InstagramVerif/></Layout>} />} />
           <Route path="/tasks" element={<PrivateRoute element={<Layout><Task/></Layout>} />} />
           <Route path="/home-brand" element={<PrivateRoute element={<Layout><HomePageBrand/></Layout>} />} />
+          <Route path="/report-creator" element={<PrivateRoute element={<Layout><ReportCreator/></Layout>} />} />
+          <Route path="/Overview" element={<PrivateRoute element={<Layout><Overview/></Layout>} />} />
         </Routes>
       </AuthProvider>
     </Router>

@@ -1,18 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal, Button, Input, Form, message } from 'antd';
 import { InstagramOutlined, UserOutlined } from '@ant-design/icons';
 import { SiTiktok, SiPinterest } from 'react-icons/si';
 import { Typewriter } from 'react-simple-typewriter';
 import './index.css';
 import axios from 'axios';
-import { toast } from 'react-toastify';
 
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 const SocialIcons: React.FC = () => {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const [platform, setPlatform] = useState<string>('');
-  
   const [form] = Form.useForm();
   const userData: any = JSON.parse(localStorage.getItem("userProfile") || '{}');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check if the account type is creator
+    if (userData?.accountType !== 'creator') {
+      // Redirect if not creator
+     
+      toast.error ('Access denied. This page is for creators only.');
+    }
+  }, [userData, navigate]);
+
   const showModal = (platform: string) => {
     if (platform === 'Instagram' || platform === 'Pinterest') {
       setPlatform(platform);
@@ -30,9 +41,7 @@ const SocialIcons: React.FC = () => {
         try {
             const response =  axios.get(`http://localhost:5000/api/instagram/${values?.username}/${userData?._id}`);
             toast.success('Login successful');
-            // window.location.href = '/home';
-            console.log(response)
-      
+            console.log(response);
           } catch (error) {
             toast.error('Login failed');
           }
@@ -48,19 +57,17 @@ const SocialIcons: React.FC = () => {
     setIsModalVisible(false);
     form.resetFields();
   };
-  const handleInstagram =async()=> {
+
+  const handleInstagram = async() => {
     try {
       const response = await axios.post(`http://localhost:5000/api/instagram//${userData?._id}`);
       toast.success('Login successful');
-      // window.location.href = '/home';
-      console.log(response)
-
+      console.log(response);
     } catch (error) {
       toast.error('Login failed');
     }
-  }
+  };
 
-  
   return (
     <div className="social-icons-container">
       {/* Animated sentence using react-simple-typewriter */}
@@ -71,7 +78,7 @@ const SocialIcons: React.FC = () => {
           cursor
           cursorStyle='_'
           typeSpeed={70}
-          deleteSpeed={50}
+          deleteSpeed={5000}
           delaySpeed={1000}
         />
       </div>

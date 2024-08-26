@@ -11,20 +11,33 @@ import axios from 'axios';
 const Login: React.FC = () => {
   const [state, setState] = useState({ email: "", password: "" });
   const { login } = useAuth();
+  const navigate = useNavigate();
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setState(prevState => ({ ...prevState, [name]: value }));
   };
-  const navigate=useNavigate()
+
   const handleSubmit = async () => {
     try {
       const response = await axios.post('http://localhost:5000/api/auth/login', state);
-      login(response.data.token, response.data.user);
-      toast.success('Login successful');
-      // window.location.href = '/home';
-      console.log(response)
-      navigate("/verif")
+      const { token, user } = response.data;
+      
+      // Assuming accountType is part of user object
+      const accountType = user.accountType;
 
+      // Log the user in
+      login(token, user);
+
+      // Navigate based on account type
+      if (accountType === 'creator') {
+        navigate('/verif');
+      }
+      else {
+        navigate('/home-brand'); // Default navigation
+      }
+
+      toast.success('Login successful');
     } catch (error) {
       toast.error('Login failed');
     }
@@ -39,7 +52,7 @@ const Login: React.FC = () => {
       <div className="Login-page">
         <div className="loginhaeder">
           Don't have an account?
-          <button  onClick={() =>navigate (  "/actor-space")} className="Signup">
+          <button onClick={() => navigate("/actor-space")} className="Signup">
             Signup
           </button>
         </div>

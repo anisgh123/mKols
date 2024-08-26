@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './index.css';
 import axios, { AxiosError } from 'axios';
-
+import { useNavigate } from 'react-router-dom'
 const SignupBusiness: React.FC = () => {
   const [state, setState] = useState({ email: "", password: "", firstName: "", lastName: "", accountType: "business" });
 
@@ -13,7 +13,7 @@ const SignupBusiness: React.FC = () => {
     const { name, value } = e.target;
     setState(prevState => ({ ...prevState, [name]: value }));
   };
-
+  const navigate = useNavigate();
   const handleSubmit = async () => {
     try {
       const response = await axios.post('http://localhost:5000/api/auth/signup', state);
@@ -41,10 +41,10 @@ const SignupBusiness: React.FC = () => {
           <p> Business </p>
         </div>
         <div className="buttons-header">
-          <button onClick={() => window.location.href = "/login"} className="btn-login">
+        <button onClick={() => navigate("/login")} className="btn-login">
             Login
           </button>
-          <button onClick={() => window.location.href = "/signup-creator"} className="btn-sgnup">
+          <button onClick={() => navigate("/signup-creator")} className="btn-signup">
             Signup as creator
           </button>
         </div>

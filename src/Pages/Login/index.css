@@ -82,7 +82,7 @@ a{
     width: 440px;
     height: 40px;
    background-color: #F29219;
-   
+   cursor: pointer;
     border-radius: 5px ;
     color:white;
     border: none;
@@ -93,7 +93,7 @@ a{
   
     }
     .Signup{   border-radius: 6px;
-      color: black;
+      color: black;  cursor: pointer;
       background-color: white;
       border: 1px solid gray;
       padding: 5px 5px;}
