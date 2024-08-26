@@ -134,7 +134,8 @@ exports.updateProfile = async (req, res) => {
     console.error(error);
     res.status(500).json({ message: 'Something went wrong' });
   }
-};
+}; 
+
 exports.getCreators = async (req, res) => {
   try {
     const creators = await User.find({ 

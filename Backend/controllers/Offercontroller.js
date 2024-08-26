@@ -37,7 +37,8 @@ exports.createOffer = async (req, res) => {
    
       to: creator?.email,
       subject: 'New offer',
-      html: `<p>New offer proposition from ${businessemail}</p>`,
+      html: `<p>We’re excited to inform you about a new exclusive offer from ${businessemail}, tailored just for you! Take advantage of offer details . Don’t miss this unique opportunity 
+To learn more and claim your offer, visit you account  </p>`,
     };
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {

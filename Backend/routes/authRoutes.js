@@ -12,4 +12,5 @@ router.post('/forget-password', forgetPassword);
 router.post('/reset-password', resetPassword);
 router.patch('/update-profile', authMiddleware, updateProfile);
 router.get('/creators',getCreators );
+
 module.exports = router;
