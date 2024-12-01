@@ -80,7 +80,16 @@ const HomePageBrand: React.FC = () => {
   const declinedOffersCount = offers?.filter((offer: any) => offer?.status === "declined").length || 0;
   const acceptedOffersCount = offers?.filter((offer: any) => offer?.status === "accepted").length || 0;
   const pendingOffersCount = offers?.filter((offer: any) => offer?.status === "pending").length || 0;
-  
+  // useEffect(()=>{
+  //   const accessToken = "aae9d09ddd1b604e4653be05b3dd50a1d0a98b16";
+
+  //   const response = fetch(`https://api-ssl.bitly.com/v4/bitlinks/https://bit.ly/4dPpZ7c/clicks`, {
+  //     headers: {
+  //       'Authorization': `Bearer ${accessToken}`,
+  //     },
+  //   });
+  //   console.log("responseee",response)
+  // },[])
   const offerStatusData = {
     labels: ['Accepted', 'Rejected', 'Pending'],
     datasets: [

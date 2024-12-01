@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { AuthProvider } from './AuthContext';
 import Login from './Pages/Login';
 import SignupBusiness from './Pages/Signupbusiness';
@@ -16,16 +16,18 @@ import PrivateRoute from './PrivateRoute';
 import OfferCreator from './Pages/OfferListCreator';
 import FilterProfile from './Pages/FilterProfile';
 import InstagramVerif from './Pages/InstagramVerif/InstagramVerif';
-import Task  from './Pages/Task';
+import Task from './Pages/Task';
 import HomePageBrand from './Pages/BrandHomePage';
-import Overview from './Pages/Overview'
 import ReportCreator from './Pages/ReportCreator';
+
 const App: React.FC = () => {
   return (
     <Router>
       <AuthProvider>
         <Routes>
-          
+        
+          <Route path="/" element={<Navigate to="/actor-space" />} />
+
           <Route path="/actor-space" element={<ActorSpace />} />
           <Route path="/signup-creator" element={<SignupCreator />} />
           <Route path="/signup-business" element={<SignupBusiness />} />
@@ -37,12 +39,11 @@ const App: React.FC = () => {
           <Route path="/setting-page" element={<PrivateRoute element={<Layout><SettingPage /></Layout>} />} />
           <Route path="/profile/:id" element={<PrivateRoute element={<Layout><ProfilePage /></Layout>} />} />
           <Route path="/offercreator" element={<PrivateRoute element={<Layout><OfferCreator /></Layout>} />} />
-          <Route path="/creators" element={<PrivateRoute element={<Layout><FilterProfile/></Layout>} />} />
-          <Route path="/verif" element={<PrivateRoute element={<Layout><InstagramVerif/></Layout>} />} />
-          <Route path="/tasks" element={<PrivateRoute element={<Layout><Task/></Layout>} />} />
-          <Route path="/home-brand" element={<PrivateRoute element={<Layout><HomePageBrand/></Layout>} />} />
-          <Route path="/report-creator" element={<PrivateRoute element={<Layout><ReportCreator/></Layout>} />} />
-          <Route path="/Overview" element={<PrivateRoute element={<Layout><Overview/></Layout>} />} />
+          <Route path="/creators" element={<PrivateRoute element={<Layout><FilterProfile /></Layout>} />} />
+          <Route path="/verif" element={<PrivateRoute element={<Layout><InstagramVerif /></Layout>} />} />
+          <Route path="/tasks" element={<PrivateRoute element={<Layout><Task /></Layout>} />} />
+          <Route path="/home-brand" element={<PrivateRoute element={<Layout><HomePageBrand /></Layout>} />} />
+          <Route path="/report-creator" element={<PrivateRoute element={<Layout><ReportCreator /></Layout>} />} />
         </Routes>
       </AuthProvider>
     </Router>

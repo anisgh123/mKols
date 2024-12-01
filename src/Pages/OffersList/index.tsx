@@ -76,7 +76,7 @@ const OffersList: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   const pageSize = 5;
-  const [offers,setOffers]=useState<any>()
+  const [offers, setOffers] = useState<any>();
 
   const handleDelete = (key: React.Key) => {
     setData(data.filter(item => item.key !== key));
@@ -114,10 +114,10 @@ const OffersList: React.FC = () => {
       title: 'Influencer',
       dataIndex: 'creator',
       key: 'influencer',
-      render: (text: any, record: any) => (
+      render: (text: any) => (
         <Space>
-          <span>{text?.firstName}</span>
-          <a href={`mailto:${text.email}`}>{text.email}</a>
+          <span>{text?.firstName || 'Unknown'}</span>
+          <a href={`mailto:${text?.email || ''}`}>{text?.email || 'No email provided'}</a>
         </Space>
       ),
     },
@@ -136,22 +136,28 @@ const OffersList: React.FC = () => {
       ),
     },
   ];
+
   const userData: any = JSON.parse(localStorage.getItem("userProfile") || '{}');
 
   useEffect(() => {
-    const fetchCreators = async () => {
-      try {
-        const response = await axios.get(`http://localhost:5000/api/businessOffer?email=${userData?.email}`, {
-          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-        });
-        setOffers(response.data);
-      } catch (error) {
-        console.error('Error fetching creator profiles:', error);
-      }
-    };
+    if (userData?.email) {
+      const fetchCreators = async () => {
+        try {
+          const response = await axios.get(`http://localhost:5000/api/businessOffer?email=${userData.email}`, {
+            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+          });
+          setOffers(response.data);
+        } catch (error) {
+          console.error('Error fetching creator profiles:', error);
+        }
+      };
 
-    fetchCreators();
-  }, []);
+      fetchCreators();
+    } else {
+      console.error("User data is not available.");
+    }
+  }, [userData]);
+
   const handleFilterChange = (newFilter: string) => {
     setFilter(newFilter);
     setCurrentPage(1); // Reset to first page when filter changes
@@ -200,7 +206,7 @@ const OffersList: React.FC = () => {
         className="offers-table"
         rowSelection={rowSelection}
         columns={columns}
-        dataSource={offers?.slice((currentPage - 1) * pageSize, currentPage * pageSize)}
+        dataSource={offers ? offers.slice((currentPage - 1) * pageSize, currentPage * pageSize) : []}
         pagination={false}
       />
       <div className="offers-pagination">

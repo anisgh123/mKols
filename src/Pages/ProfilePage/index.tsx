@@ -132,6 +132,3 @@ const ProfilePage: React.FC = () => {
 };
 
 export default ProfilePage;
-
-
-

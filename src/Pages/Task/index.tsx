@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Checkbox, List, Typography, Button, Progress, Badge, Modal, Form, Input, DatePicker, Space } from 'antd';
+import { Card, Checkbox, List, Typography, Button, Progress, Badge, Modal, Form, Input, DatePicker } from 'antd';
 import { CheckCircleOutlined, ClockCircleOutlined, PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import './index.css';
 import moment from 'moment';
@@ -14,7 +14,7 @@ interface Task {
   description: string;
   completed: boolean;
   deadline?: string;
-  _id:string
+  _id: string;
 }
 
 const TasksPage: React.FC = () => {
@@ -22,9 +22,9 @@ const TasksPage: React.FC = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [fetch, setFetch] = useState(false);
-
   const [editingTask, setEditingTask] = useState<Task | null>(null);
   const [form] = Form.useForm();
+
   useEffect(() => {
     const fetchTasks = async () => {
       try {
@@ -33,12 +33,13 @@ const TasksPage: React.FC = () => {
         });
         setTasks(response.data);
       } catch (error) {
-        console.error('Error fetching creator profiles:', error);
+        console.error('Error fetching tasks:', error);
       }
     };
 
     fetchTasks();
   }, [fetch]);
+
   const showAddTaskModal = () => {
     setIsModalVisible(true);
     setIsEditing(false);
@@ -56,33 +57,37 @@ const TasksPage: React.FC = () => {
     setIsModalVisible(true);
   };
 
-  const handleOk =  () => {
+  const handleOk = () => {
     form.validateFields()
-      .then(values => {
-        const newTask: any = {
+      .then(async (values) => {
+        const newTask: Task = {
           id: isEditing && editingTask ? editingTask.id : tasks.length + 1,
           title: values.title,
           description: values.description,
           completed: false,
           deadline: values.deadline ? values.deadline.format('YYYY-MM-DD') : undefined,
+          _id: editingTask?._id || '',
         };
 
         if (isEditing && editingTask) {
-          setTasks(prevTasks =>
-            prevTasks.map(task =>
-              task.id === editingTask.id ? { ...task, ...newTask } : task
-            )
-          );
-        } else {
           try {
-            const response =  axios.post(`http://localhost:5000/api/task`,newTask, {
+            await axios.put(`http://localhost:5000/api/task/${editingTask._id}`, newTask, {
               headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
             });
-            toast.success('Offer accepted  successful');
-            setFetch(!fetch)
-
-              } catch (error) {
-            console.error('Error fetching creator profiles:', error);
+            toast.success('Task updated successfully');
+            setFetch(!fetch);
+          } catch (error) {
+            console.error('Error updating task:', error);
+          }
+        } else {
+          try {
+            await axios.post(`http://localhost:5000/api/task`, newTask, {
+              headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+            });
+            toast.success('Task added successfully');
+            setFetch(!fetch);
+          } catch (error) {
+            console.error('Error adding task:', error);
           }
         }
 
@@ -107,15 +112,15 @@ const TasksPage: React.FC = () => {
     );
   };
 
-  const handleDeleteTask = (id: string) => {
+  const handleDeleteTask = async (id: string) => {
     try {
-      const response =  axios.delete(`http://localhost:5000/api/task/${id}`, {
+      await axios.delete(`http://localhost:5000/api/task/${id}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
-      toast.success('task deleted  successful');
-      setFetch(!fetch)
-        } catch (error) {
-      console.error('Error fetching creator profiles:', error);
+      toast.success('Task deleted successfully');
+      setFetch(!fetch);
+    } catch (error) {
+      console.error('Error deleting task:', error);
     }
   };
 
@@ -128,9 +133,9 @@ const TasksPage: React.FC = () => {
       <Title level={2}>My Tasks</Title>
 
       <Card className="tasks-summary" bordered={false}>
-        <Progress 
-          type="circle" 
-          percent={Math.round(completionRate)} 
+        <Progress
+          type="circle"
+          percent={Math.round(completionRate)}
           format={percent => `${percent}% Completed`}
         />
         <div className="summary-info">

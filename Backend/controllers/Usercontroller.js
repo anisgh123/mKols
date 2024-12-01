@@ -49,3 +49,23 @@ exports.getInstagramData = async (req, res) => {
     res.status(500).json({ message: 'Something went wrong' });
   }
 };
+exports.getClicksData = async (req, res) => { 
+  const { bitlink } = req.query;
+  const accessToken = "aae9d09ddd1b604e4653be05b3dd50a1d0a98b16";
+
+  try {
+    const response = await axios.get(`https://api-ssl.bitly.com/v4/bitlinks/bit.ly/${bitlink}/clicks`, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+      },
+    });
+
+    // Send the Bitly data back as a response
+    res.json(response.data);
+
+  } catch (error) {
+    // Handle errors
+    console.error(error);
+    res.status(500).json({ message: 'Error fetching data from Bitly', error: error.message });
+  }
+};
